@@ -18,7 +18,7 @@ if [[ "$confirm" =~ ^[Yy]$ ]]; then
     read -p "Do you want to download custom standard linting settings? (Y/N): " linting_confirm
     if [[ "$linting_confirm" =~ ^[Yy]$ ]]; then
         echo "Downloading custom linting settings..."
-        curl -o esllint.config.js https://raw.githubusercontent.com/ASanchz85/JS-Utils/main/eslint.config.js
+        curl -o eslint.config.js https://raw.githubusercontent.com/ASanchz85/JS-Utils/main/eslint.config.js
         echo "Linting settings downloaded as esllint.config.js"
     else
         echo "Skipping linting settings download."
@@ -65,6 +65,8 @@ if [[ "$confirm" =~ ^[Yy]$ ]]; then
         # Create an empty index.ts file in each folder
         touch "$folder/index.ts"
     done
+
+    mv pages shared theme src/
 
     echo "Folders and index.ts files created successfully!"
 else
