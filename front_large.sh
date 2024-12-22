@@ -49,6 +49,7 @@ if [[ "$confirm" =~ ^[Yy]$ ]]; then
         "features/auth/hooks"
         "features/auth/services"
         "features/auth/context"
+        "features/auth/helpers"
         "features/auth/types"
         "features/auth/__tests__"
         "theme/layout"
