@@ -2,9 +2,11 @@
 
 This is a bash script to create a custom folder structure for medium/larger react ts projects. It tries to keep a clean architecture for frontend development.
 
-There are several scripts depending on how big your project will be. Small, medium, and large. Together with them, we have something in between mid/large named front_init.
+There are several scripts depending on how big your project will be. Small, medium, and large. Together with them, we have something in between mid/large named midLarge.
 
-The explanations above of how to install one of them are completely valid for the rest too. Just change the name of the script you would like to execute.
+Apart from that, I've created a simple menu to allow you pick the right choice. For doing so, you need to follow the steps below.
+
+Once executed, just follow the steps prompted in your terminal.
 
 ## How to use it?
 
@@ -38,3 +40,5 @@ You can rename front_init alias for the one more convenient to you.
 ```sh
 source ~/.bashrc
 ```
+
+*Happy hacking!!*

@@ -1,81 +1,42 @@
 #!/bin/bash
 
-# Ask if the current directory is correct
-echo "Current directory: $(pwd)"
-read -p "Is this the correct directory? (Y/N): " confirm
+# Ensure all scripts are executabled
+chmod +x front_large.sh front_midLarge.sh front_midSize.sh front_small.sh
 
-# Convert the input to lowercase and check if it's a positive response
-if [[ "$confirm" =~ ^[Yy]$ ]]; then
-    # Step 1: Initialize git repository
-    echo "Initializing git repository..."
-    git init
+# Display menu options
+echo "Select the project architecture to initialize:"
+echo "1) Large Project"
+echo "2) Mid-large Project"
+echo "3) Mid-size Project"
+echo "4) Small Project"
+echo "5) Exit"
 
-    # Step 2: Copy template_gitignore to .gitignore
-    echo "Copying .gitignore from template..."
-    cp "$(dirname "$0")/template_gitignore" ./.gitignore
+# Read user choice
+read -p "Enter your choice (1-5): " choice
 
-    # Step 3: Ask if the user wants to download custom linting settings
-    read -p "Do you want to download custom standard linting settings? (Y/N): " linting_confirm
-    if [[ "$linting_confirm" =~ ^[Yy]$ ]]; then
-        echo "Downloading custom linting settings..."
-        curl -o eslint.config.js https://raw.githubusercontent.com/ASanchz85/JS-Utils/main/eslint.config.js
-        echo "Linting settings downloaded as esllint.config.js"
-    else
-        echo "Skipping linting settings download."
-    fi
-
-    # Step 4: Ask if the user wants to download Vite configuration
-    read -p "Do you want to download custom Vite configuration settings? (Y/N): " vite_confirm
-    if [[ "$vite_confirm" =~ ^[Yy]$ ]]; then
-        echo "Downloading custom Vite configuration..."
-        curl -o vite.config.ts https://raw.githubusercontent.com/ASanchz85/JS-Utils/main/vite.config.ts
-        echo "Vite configuration downloaded as vite.config.ts"
-    else
-        echo "Skipping Vite configuration download."
-    fi
-
-    # Step 5: Create folder structure
-    echo "Creating folder structure..."
-
-    # Define the folders based on the tree structure you provided
-    folders=(
-        "pages"
-        "shared"
-        "theme"
-        "theme/layout"
-        "theme/layout/components/navbar"
-        "theme/layout/components/footer"
-        "theme/layout/mainLayout"
-        "theme/templates"
-        "theme/templates/modals"
-        "theme/templates/toasts"
-        "theme/templates/forms"
-        "theme/styles"
-        "shared/lib"
-        "shared/data"
-        "shared/utils"
-        "shared/types"
-        "shared/services"
-        "shared/routes"
-        "shared/context"
-        "shared/hooks"
-        "shared/hoc"
-        "shared/tests"
-        "shared/globalStore"
-        "shared/config"
-        "shared/components"
-    )
-
-    # Loop through the folder list and create each one
-    for folder in "${folders[@]}"; do
-        mkdir -p "$folder"
-        # Create an empty index.ts file in each folder
-        touch "$folder/index.ts"
-    done
-
-    mv pages shared theme src/
-
-    echo "Folders and index.ts files created successfully!"
-else
-    echo "Operation cancelled."
-fi
+# Execute the selected script
+case $choice in
+    1)
+        echo "Initializing Large Project..."
+        bash ./front_large.sh
+        ;;
+    2)
+        echo "Initializing Mid-large size Project..."
+        bash ./front_midLarge.sh
+        ;;
+    3)
+        echo "Initializing Mid-size Project..."
+        bash ./front_midSize.sh
+        ;;
+    4)
+        echo "Initializing Small Project..."
+        bash ./front_small.sh
+        ;;
+    5)
+        echo "Exiting."
+        exit 0
+        ;;
+    *)
+        echo "Invalid choice. Please run the script again and select a valid option."
+        ;;
+esac
