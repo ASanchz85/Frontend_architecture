@@ -1,7 +1,30 @@
 #!/bin/bash
 
+# Default path is the current directory
+SCRIPT_DIR="."
+
+for arg in "$@"; do
+    case $arg in
+        --path=*)
+            SCRIPT_DIR="${arg#*=}"
+            shift
+            ;;
+        *)
+            if [ -d "$arg" ]; then
+                SCRIPT_DIR="$arg"
+                shift
+            fi
+            ;;
+    esac
+done
+
+if [ ! -d "$SCRIPT_DIR" ]; then
+    echo "❌ Error: The provided script path '$SCRIPT_DIR' does not exist."
+    exit 1
+fi
+
 # Ensure all scripts are executabled
-chmod +x front_large.sh front_midLarge.sh front_midSize.sh front_small.sh
+chmod +x "$SCRIPT_DIR"/front_large.sh "$SCRIPT_DIR"/front_midLarge.sh "$SCRIPT_DIR"/front_midSize.sh "$SCRIPT_DIR"/front_small.sh
 
 # Display menu options
 echo "Select the project architecture to initialize:"
@@ -18,19 +41,19 @@ read -p "Enter your choice (1-5): " choice
 case $choice in
     1)
         echo "Initializing Large Project..."
-        bash ./front_large.sh
+        bash "$SCRIPT_DIR"/front_large.sh
         ;;
     2)
         echo "Initializing Mid-large size Project..."
-        bash ./front_midLarge.sh
+        bash "$SCRIPT_DIR"/front_midLarge.sh
         ;;
     3)
         echo "Initializing Mid-size Project..."
-        bash ./front_midSize.sh
+        bash "$SCRIPT_DIR"/front_midSize.sh
         ;;
     4)
         echo "Initializing Small Project..."
-        bash ./front_small.sh
+        bash "$SCRIPT_DIR"/front_small.sh
         ;;
     5)
         echo "Exiting."
